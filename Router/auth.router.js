@@ -1,11 +1,11 @@
 // Router/auth.router.js
 import { Router } from "express";
-import { 
-    signIn, 
-    signUp, 
-    signOut, 
+import {
+    signIn,
+    signUp,
+    signOut,
     getCurrentDoctor,
-} from "../controller/auth.js";
+} from "../controller/auth.controller.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
 
 const authRouter = Router();

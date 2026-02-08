@@ -170,7 +170,7 @@ export const signIn = async (req, res, next) => {
                 specialty: doctor.specialty,
                 createdAt: doctor.created_at,
                 token: token
-            }   
+            }
         });
 
     } catch (error) {
@@ -228,9 +228,20 @@ export const getCurrentDoctor = async (req, res, next) => {
             });
         }
 
+        const doctor = doctors[0];
+
         res.status(200).json({
             success: true,
-            data: doctors[0]
+            data: {
+                doctorId: doctor.id,
+                email: doctor.email,
+                firstName: doctor.first_name,
+                lastName: doctor.last_name,
+                phone: doctor.phone,
+                specialty: doctor.specialty,
+                createdAt: doctor.created_at,
+                updatedAt: doctor.updated_at
+            }
         });
 
     } catch (error) {
@@ -242,3 +253,4 @@ export const getCurrentDoctor = async (req, res, next) => {
         });
     }
 };
+
