@@ -158,6 +158,7 @@ export const signIn = async (req, res, next) => {
                 d.created_at,
                 c.name as cabinet_name,
                 c.address as cabinet_address,
+                c.id as cabinet_id,
                 c.schedule as cabinet_schedule
             FROM doctors d
             LEFT JOIN cabinets c ON d.id = c.doctor_id
@@ -206,6 +207,7 @@ export const signIn = async (req, res, next) => {
                 specialty: doctor.specialty,
                 cabinetName: doctor.cabinet_name,
                 cabinetAddress: doctor.cabinet_address,
+                cabinetId: doctor.cabinet_id,
                 schedule: typeof doctor.cabinet_schedule === 'string'
                     ? JSON.parse(doctor.cabinet_schedule)
                     : doctor.cabinet_schedule,
@@ -259,6 +261,7 @@ export const getCurrentDoctor = async (req, res, next) => {
                 d.updated_at,
                 c.name as cabinet_name,
                 c.address as cabinet_address,
+                c.id as cabinet_id,
                 c.schedule as cabinet_schedule
             FROM doctors d
             LEFT JOIN cabinets c ON d.id = c.doctor_id
@@ -288,6 +291,7 @@ export const getCurrentDoctor = async (req, res, next) => {
                 updatedAt: doctor.updated_at,
                 cabinetName: doctor.cabinet_name,
                 cabinetAddress: doctor.cabinet_address,
+                cabinetId: doctor.cabinet_id,
                 schedule: typeof doctor.cabinet_schedule === 'string'
                     ? JSON.parse(doctor.cabinet_schedule)
                     : doctor.cabinet_schedule
