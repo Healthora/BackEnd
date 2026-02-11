@@ -71,7 +71,15 @@ export const getAppointments = async (req, res) => {
 
         const [appointments] = await pool.query(
             `SELECT 
-                a.*,
+                a.id,
+                a.doctor_id,
+                a.patient_id,
+                a.cabinet_id,
+                DATE_FORMAT(a.appointment_date, '%Y-%m-%d') as appointment_date,
+                a.status,
+                a.visit_type,
+                a.notes,
+                a.created_at,
                 p.first_name as patient_first_name,
                 p.last_name as patient_last_name,
                 p.phone as patient_phone,
@@ -208,6 +216,34 @@ export const updateAppointment = async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Erreur lors de la mise à jour',
+            error: error.message
+        });
+    }
+};
+
+export const deleteAppointment = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [result] = await pool.query('DELETE FROM appointments WHERE id = ?', [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Rendez-vous non trouvé'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Rendez-vous supprimé avec succès'
+        });
+
+    } catch (error) {
+        console.error('Erreur lors de la suppression du rendez-vous:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Erreur lors de la suppression',
             error: error.message
         });
     }
